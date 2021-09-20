@@ -8,15 +8,15 @@ interface Data {
 
 const data: Data[] = [
   { id: 1, isValid: true },
-  { id: 2, isValid: true },
+  { id: 2, isValid: false },
   { id: 3, isValid: true },
-  { id: 4, isValid: true },
+  { id: 4, isValid: false },
 ];
 
 var obs =
   from(data)
   .pipe(tap(i => console.log(` Input value = ${i.id} `)))
-  .pipe(pluck())
-  .pipe(tap(i => console.log(` Number of invalid items: ${i} `)));
+  .pipe(pluck('isValid'))
+  .pipe(tap(i => console.log(` Items is valid: ${i} `)));
 
 obs.subscribe(); 
