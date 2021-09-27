@@ -1,8 +1,11 @@
 const path = require('path');
+const fs = require('fs');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const NodeExternals = require('webpack-node-externals');
 
-let pageNames = ['debounceTime', 'switchMap'];
+let pageNames = fs.readdirSync('./src/web')
+  .filter(file => file.endsWith('.html'))
+  .map(file => file.replace(/\.[^/.]+$/, ""));
 
 let multipleHtmlPlugins = pageNames.map(name => {
   return new HtmlWebpackPlugin({
@@ -17,6 +20,13 @@ let multipleEntryPoints = Object.fromEntries(pageNames.map(name => [name, `./src
 module.exports = {
   mode: "development",
   devtool: "inline-source-map",
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'build'),
+    },
+    compress: true,
+    port: 9000,
+  },
   target: 'web',
   entry: multipleEntryPoints,
   output: {
@@ -35,5 +45,11 @@ module.exports = {
       }
     ]
   },
-  plugins: multipleHtmlPlugins
+  plugins: [...multipleHtmlPlugins,
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: './src/sample.json', to: '' }
+      ]
+    })
+  ]
 };

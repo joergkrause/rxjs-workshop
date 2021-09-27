@@ -14,6 +14,7 @@
     "outDir": "./dist/",
     "removeComments": false,
     "sourceRoot": "./src",
+    "rootDir": "./src",
     // "inlineSourceMap": true,                          /* Include sourcemap files inside the emitted JavaScript. */
     // "inlineSources": true,                            /* Include source code in the sourcemaps inside the emitted JavaScript. */
     "newLine": "crlf",
@@ -22,5 +23,8 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true
-  }
+  },
+  "exclude": [
+    "build", "dist", "./*.js"
+  ]
 }

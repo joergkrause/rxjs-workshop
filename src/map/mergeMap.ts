@@ -10,7 +10,6 @@ const dataSource1: Data[] = [
   { id: 1, isValid: true },
   { id: 2, isValid: false },
   { id: 3, isValid: true },
-  { id: 4, isValid: false },
 ];
 
 const dataSource2: Data[] = [
@@ -20,9 +19,8 @@ const dataSource2: Data[] = [
   { id: 8, isValid: false },
 ];
 
-var groupOfData = of(dataSource1, dataSource2);
-    
-var obs = from(dataSource1).pipe(mergeMap((data) => data as any));
+// Erstes Observable triggered den Abruf des zweiten (das wird dann 3 x ausgegeben)
+var obs = from(dataSource1).pipe(mergeMap((data) => dataSource2));
 
-obs.subscribe(value => console.log(` Observer A: ${value}`));
+obs.subscribe(value => console.log(` Observer A: ${value.id}`));
 
