@@ -1,16 +1,18 @@
-import { AsyncSubject } from 'rxjs';
-import { ajax } from 'rxjs/ajax';
+import { AsyncSubject, map } from 'rxjs';
+import { ajax, AjaxResponse } from 'rxjs/ajax';
+
+// https://indepth.dev/reference/rxjs/subjects/async-subject
 
 if(typeof window === 'undefined') {
   global.XMLHttpRequest = require("xhr2");
 } 
 
-const google$ = ajax('https://google.de');
+const google$ = ajax
+  .get('https://google.de')
+  .pipe(map(res => console.log(`${res.loaded} bytes`)))
+  ;
 const async$ = new AsyncSubject();
 google$.subscribe(async$);
 
-async$.subscribe(val => console.log((val as any).toString().length));
+async$.complete();
 
-setTimeout(() => {
-  async$.subscribe(val => console.log((val as any).response));
-}, 1000);

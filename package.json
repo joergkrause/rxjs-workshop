@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack serve",
-    "debug": "node ./dist/subject.http"
+    "debug": "node ./dist/subjects/http.js"
   },
   "repository": {
     "type": "git",
