@@ -18,14 +18,15 @@ let multipleHtmlPlugins = pageNames.map(name => {
 let multipleEntryPoints = Object.fromEntries(pageNames.map(name => [name, `./src/web/${name}.ts`]));
 
 module.exports = {
+  // context: path.resolve(__dirname, 'src'),
   mode: "development",
-  devtool: "inline-source-map",
+  devtool: "source-map",
   devServer: {
     static: {
       directory: path.join(__dirname, 'build'),
     },
     compress: true,
-    port: 9000,
+    port: 9000
   },
   target: 'web',
   entry: multipleEntryPoints,

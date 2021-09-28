@@ -5,12 +5,34 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug Node",
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "program": "${workspaceFolder}/src/subjects/http.ts",
-      "preLaunchTask": "tsc: build - tsconfig.json",
-      "outFiles": ["${workspaceFolder}/dist/"]
-    }
+      "args": [
+        "${relativeFile}"
+      ],
+      "runtimeArgs": [
+        "--nolazy",
+        "-r",
+        "ts-node/register"
+      ],
+      "cwd": "${workspaceFolder}",
+      "protocol": "inspector",
+      "sourceMaps": true
+    },
+    {
+      "name": "Debug via localhost",
+      "type": "pwa-msedge",
+      "request": "launch",
+      "preLaunchTask": "webpack: dev server",
+      "args": [
+        "--config",
+        "webpack.config.js"
+      ],
+      "url": "http://localhost:9000/${fileBasename}",
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMaps": true,
+      "trace": true
+  }
   ]
 }
