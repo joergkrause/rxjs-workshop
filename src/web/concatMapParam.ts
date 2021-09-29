@@ -1,7 +1,7 @@
 import { fromEvent, Observable, Subscriber } from 'rxjs';
 import { concatMap, debounce, debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
-const input = document.querySelector<HTMLInputElement>("input") as NonNullable<HTMLInputElement>;
+const input = document.querySelector<HTMLInputElement>("input")!;
 
 // fetch (Promise) als Observable darstellen
 function ObservableFetch(param: number /* Closure */): Observable<any> {
