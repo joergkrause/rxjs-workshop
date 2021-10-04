@@ -2,7 +2,7 @@ import { Observable, fromEvent, interval } from 'rxjs';
 import { switchMap, take, tap } from 'rxjs/operators';
 
 // UI
-const btn = document.querySelector<HTMLInputElement>("button") as NonNullable<HTMLInputElement>;
+const btn = document.querySelector<HTMLInputElement>("button")!;
 // click triggered observable A
 const clicks = fromEvent(btn, 'click');
 // switchMap löst mit Observable A das Observable B aus (B ist der Ausgabestrom)

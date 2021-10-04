@@ -16,7 +16,7 @@ const data: Data[] = [
 var obs =
   interval(500).pipe(take(5))
     .pipe(tap(i => console.log(` Side effect A (tap): ${i} `)))
-    .pipe(share());
+    //.pipe(share());
 
 obs.subscribe(value => console.log(` Observer A: ${value} `));
 
