@@ -1,7 +1,7 @@
 import { ajax } from "rxjs/ajax";
 import { map, pluck, tap } from "rxjs/operators";
 
-const url = "https://func-workshop-pre.azurewebsites.net/api/status/Temperature?code=eytgBEusvmFUk9MPyBJLXsR4Jdjt8CReBVQYCVLayinxnd2PCcIaKw==";
+const url = "<Replace with your endoint>";
 const headers: Record<string, string> = {
   "Accept": "application/json"
 };
