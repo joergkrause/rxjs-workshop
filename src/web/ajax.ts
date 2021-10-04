@@ -1,5 +1,5 @@
 import { ajax } from "rxjs/ajax";
-import { pluck, tap } from "rxjs/operators";
+import { map, pluck, tap } from "rxjs/operators";
 
 const url = "https://func-workshop-pre.azurewebsites.net/api/status/Temperature?code=eytgBEusvmFUk9MPyBJLXsR4Jdjt8CReBVQYCVLayinxnd2PCcIaKw==";
 const headers: Record<string, string> = {
@@ -7,7 +7,7 @@ const headers: Record<string, string> = {
 };
 
 ajax.getJSON(url, headers)
-  .pipe(pluck('url'))
+  .pipe(map((response : any) => response.url))
   .pipe(tap((url: any) => {
     let out = document.querySelector('output')!;
     out.innerText = url;

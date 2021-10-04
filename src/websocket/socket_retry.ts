@@ -1,11 +1,13 @@
 import { ajax } from "rxjs/ajax";
-import { pluck } from "rxjs/operators";
-import { webSocket } from "rxjs/webSocket";
+import { delay, pluck, retryWhen } from "rxjs/operators";
+import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 
 Object.assign(global, { WebSocket: require('ws') });
 
-const url = "wss://wpss-videocourse.webpubsub.azure.com/client/hubs/machine?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3c3M6Ly93cHNzLXZpZGVvY291cnNlLndlYnB1YnN1Yi5henVyZS5jb20vY2xpZW50L2h1YnMvbWFjaGluZSIsImlhdCI6MTYzMjk0NTA5NCwiZXhwIjoxNjMzMDMxNDk0LCJzdWIiOiJUZW1wZXJhdHVyZSJ9.YMv8Hur1t0gXJBYiZst0yPNiLfnf0QfJK4I8zLjo0Ck";
+const url = "<Add your WSS endpoint here>";
 
-const subject = webSocket(url);
+const subject: WebSocketSubject<any> = webSocket(url);
 
-subject.subscribe((data: any) => console.log(`${data.Device} = ${data.Value}`));
+subject
+  .pipe(retryWhen((errors) => errors.pipe(delay(10_000))))
+  .subscribe((data: any) => console.log(`${data.Device} = ${data.Value}`));
